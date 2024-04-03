@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "raw_inventory_txes",
+  "info": {
+    "singularName": "raw-inventory-tx",
+    "pluralName": "raw-inventory-txes",
+    "displayName": "Raw_Inventory_Tx"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantityChanged": {
+      "type": "integer",
+      "min": 0,
+      "required": true
+    },
+    "raw_inventory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::raw-inventory.raw-inventory"
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::supplier.supplier"
+    },
+    "tx_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tx-type.tx-type"
+    },
+    "unitPrice": {
+      "type": "float",
+      "min": 0,
+      "required": true
+    }
+  }
+}

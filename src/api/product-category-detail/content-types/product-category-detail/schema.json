@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_category_details",
+  "info": {
+    "singularName": "product-category-detail",
+    "pluralName": "product-category-details",
+    "displayName": "Product_Category_Detail"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "modelCode": {
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1,
+      "required": true,
+      "unique": true
+    },
+    "modelName": {
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1,
+      "required": true,
+      "unique": true
+    }
+  }
+}

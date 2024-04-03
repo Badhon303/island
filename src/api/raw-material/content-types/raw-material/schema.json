@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "raw_materials",
+  "info": {
+    "singularName": "raw-material",
+    "pluralName": "raw-materials",
+    "displayName": "Raw_Material",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "materialName": {
+      "type": "string",
+      "maxLength": 50,
+      "minLength": 1,
+      "required": true,
+      "unique": true
+    },
+    "product_category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product-category.product-category"
+    }
+  }
+}

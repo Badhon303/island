@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tx_types",
+  "info": {
+    "singularName": "tx-type",
+    "pluralName": "tx-types",
+    "displayName": "Tx_Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "In",
+        "Out"
+      ]
+    }
+  }
+}

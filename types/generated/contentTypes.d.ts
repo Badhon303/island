@@ -788,6 +788,510 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    productName: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    product_category: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'api::product-category.product-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductCategoryProductCategory
+  extends Schema.CollectionType {
+  collectionName: 'product_categories';
+  info: {
+    singularName: 'product-category';
+    pluralName: 'product-categories';
+    displayName: 'Product_Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categoryName: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    product_category_detail: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'api::product-category-detail.product-category-detail'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductCategoryDetailProductCategoryDetail
+  extends Schema.CollectionType {
+  collectionName: 'product_category_details';
+  info: {
+    singularName: 'product-category-detail';
+    pluralName: 'product-category-details';
+    displayName: 'Product_Category_Detail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    modelCode: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    modelName: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-category-detail.product-category-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-category-detail.product-category-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductInventoryProductInventory
+  extends Schema.CollectionType {
+  collectionName: 'product_inventories';
+  info: {
+    singularName: 'product-inventory';
+    pluralName: 'product-inventories';
+    displayName: 'Product_Inventory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    stock: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    product: Attribute.Relation<
+      'api::product-inventory.product-inventory',
+      'oneToOne',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-inventory.product-inventory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-inventory.product-inventory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductInventoryTxProductInventoryTx
+  extends Schema.CollectionType {
+  collectionName: 'product_inventory_txes';
+  info: {
+    singularName: 'product-inventory-tx';
+    pluralName: 'product-inventory-txes';
+    displayName: 'Product_Inventory_Tx';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    product_inventory: Attribute.Relation<
+      'api::product-inventory-tx.product-inventory-tx',
+      'oneToOne',
+      'api::product-inventory.product-inventory'
+    >;
+    tx_type: Attribute.Relation<
+      'api::product-inventory-tx.product-inventory-tx',
+      'oneToOne',
+      'api::tx-type.tx-type'
+    >;
+    quantityChanged: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    unitPrice: Attribute.Float &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-inventory-tx.product-inventory-tx',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-inventory-tx.product-inventory-tx',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRawInventoryRawInventory extends Schema.CollectionType {
+  collectionName: 'raw_inventories';
+  info: {
+    singularName: 'raw-inventory';
+    pluralName: 'raw-inventories';
+    displayName: 'Raw_Inventory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    stock: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    raw_material: Attribute.Relation<
+      'api::raw-inventory.raw-inventory',
+      'oneToOne',
+      'api::raw-material.raw-material'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::raw-inventory.raw-inventory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::raw-inventory.raw-inventory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRawInventoryTxRawInventoryTx extends Schema.CollectionType {
+  collectionName: 'raw_inventory_txes';
+  info: {
+    singularName: 'raw-inventory-tx';
+    pluralName: 'raw-inventory-txes';
+    displayName: 'Raw_Inventory_Tx';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    quantityChanged: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    raw_inventory: Attribute.Relation<
+      'api::raw-inventory-tx.raw-inventory-tx',
+      'oneToOne',
+      'api::raw-inventory.raw-inventory'
+    >;
+    supplier: Attribute.Relation<
+      'api::raw-inventory-tx.raw-inventory-tx',
+      'oneToOne',
+      'api::supplier.supplier'
+    >;
+    tx_type: Attribute.Relation<
+      'api::raw-inventory-tx.raw-inventory-tx',
+      'oneToOne',
+      'api::tx-type.tx-type'
+    >;
+    unitPrice: Attribute.Float &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::raw-inventory-tx.raw-inventory-tx',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::raw-inventory-tx.raw-inventory-tx',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRawMaterialRawMaterial extends Schema.CollectionType {
+  collectionName: 'raw_materials';
+  info: {
+    singularName: 'raw-material';
+    pluralName: 'raw-materials';
+    displayName: 'Raw_Material';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    materialName: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    product_category: Attribute.Relation<
+      'api::raw-material.raw-material',
+      'oneToOne',
+      'api::product-category.product-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::raw-material.raw-material',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::raw-material.raw-material',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSupplierSupplier extends Schema.CollectionType {
+  collectionName: 'suppliers';
+  info: {
+    singularName: 'supplier';
+    pluralName: 'suppliers';
+    displayName: 'Supplier';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    address: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 100;
+      }>;
+    phone: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+        maxLength: 20;
+      }>;
+    email: Attribute.Email &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    contactInfo: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 200;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::supplier.supplier',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::supplier.supplier',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTxTypeTxType extends Schema.CollectionType {
+  collectionName: 'tx_types';
+  info: {
+    singularName: 'tx-type';
+    pluralName: 'tx-types';
+    displayName: 'Tx_Type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.Enumeration<['In', 'Out']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tx-type.tx-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tx-type.tx-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserDetailUserDetail extends Schema.CollectionType {
+  collectionName: 'user_details';
+  info: {
+    singularName: 'user-detail';
+    pluralName: 'user-details';
+    displayName: 'User_Detail';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    firstName: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    lastName: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    users_permissions_user: Attribute.Relation<
+      'api::user-detail.user-detail',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-detail.user-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-detail.user-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +1310,17 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::product.product': ApiProductProduct;
+      'api::product-category.product-category': ApiProductCategoryProductCategory;
+      'api::product-category-detail.product-category-detail': ApiProductCategoryDetailProductCategoryDetail;
+      'api::product-inventory.product-inventory': ApiProductInventoryProductInventory;
+      'api::product-inventory-tx.product-inventory-tx': ApiProductInventoryTxProductInventoryTx;
+      'api::raw-inventory.raw-inventory': ApiRawInventoryRawInventory;
+      'api::raw-inventory-tx.raw-inventory-tx': ApiRawInventoryTxRawInventoryTx;
+      'api::raw-material.raw-material': ApiRawMaterialRawMaterial;
+      'api::supplier.supplier': ApiSupplierSupplier;
+      'api::tx-type.tx-type': ApiTxTypeTxType;
+      'api::user-detail.user-detail': ApiUserDetailUserDetail;
     }
   }
 }

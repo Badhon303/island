@@ -4,6 +4,10 @@ module.exports = (plugin) => {
 
   plugin.controllers.auth.callback = async (ctx) => {
     // Call the original callback function
+    // Convert the email to lowercase if it exists in the request body
+    if (ctx.request.body && ctx.request.body.identifier) {
+      ctx.request.body.identifier = ctx.request.body.identifier.toLowerCase();
+    }
     await originalCallback(ctx);
 
     // At this point, ctx.body contains the original login response

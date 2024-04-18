@@ -855,6 +855,11 @@ export interface ApiProductCategoryProductCategory
       'oneToOne',
       'api::product-category-detail.product-category-detail'
     >;
+    product_type: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'api::product-type.product-type'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1011,6 +1016,42 @@ export interface ApiProductInventoryTxProductInventoryTx
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::product-inventory-tx.product-inventory-tx',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductTypeProductType extends Schema.CollectionType {
+  collectionName: 'product_types';
+  info: {
+    singularName: 'product-type';
+    pluralName: 'product-types';
+    displayName: 'Product_Type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 50;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-type.product-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-type.product-type',
       'oneToOne',
       'admin::user'
     > &
@@ -1315,6 +1356,7 @@ declare module '@strapi/types' {
       'api::product-category-detail.product-category-detail': ApiProductCategoryDetailProductCategoryDetail;
       'api::product-inventory.product-inventory': ApiProductInventoryProductInventory;
       'api::product-inventory-tx.product-inventory-tx': ApiProductInventoryTxProductInventoryTx;
+      'api::product-type.product-type': ApiProductTypeProductType;
       'api::raw-inventory.raw-inventory': ApiRawInventoryRawInventory;
       'api::raw-inventory-tx.raw-inventory-tx': ApiRawInventoryTxRawInventoryTx;
       'api::raw-material.raw-material': ApiRawMaterialRawMaterial;
